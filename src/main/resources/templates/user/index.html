@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/logout}">
+    <button type="submit">Выйти из личного кабинета</button>
+</form>
+<form method="get" th:action="@{/cart}">
+    <button type="submit">Перейти в корзину</button>
+</form>
+<form method="get" th:action="@{/order}">
+    <button type="submit">Перейти к заказам</button>
+</form>
+<h1>Личный кабинет</h1>
+<h3>Сортировка, поиск, фильтрация</h3>
+<form th:method="POST" th:action="@{/personalAccount/product/search}">
+    <fieldset>
+        <legend>Выберите параметры для сортировки, поиска, фильтрации</legend>
+        <label for="search">Поиск по названию</label>
+        <input type="text" id="search" name="search" th:value="*{value_search}">
+        <br>
+        <p>Цена, руб.</p>
+        <label for="start-price">От</label>
+        <input type="text" name="start-price" id="start-price" th:value="*{value_startPrice}">
+        <label for="end-price">До</label>
+        <input type="text" name="end-price" id="end-price" th:value="*{value_endPrice}">
+        <br>
+        <div>
+            <input type="radio" id="ascending-price" name="price" value="sorted_by_ascending_price">
+            <label for="ascending-price">Отсортировать по возрастанию цены</label>
+            <input type="radio" id="descending-price" name="price" value="sorted_by_descending_price">
+            <label for="descending-price">Отсортировать по убыванию цены</label>
+            <p>Категория товаров: </p>
+            <input type="radio" id="furniture" name="contract" value="furniture">
+            <label for="furniture">Мебель</label>
+            <input type="radio" id="clothes" name="contract" value="clothes">
+            <label for="clothes">Одежда</label>
+            <input type="radio" id="appliances" name="contract" value="appliances">
+            <label for="appliances">Бытовая техника</label>
+            <br>
+            <input type="submit" value="Найти">
+        </div>
+    </fieldset>
+</form>
+<hr>
+<h3>Результат поиска, фильтрации, сортировки</h3>
+<div th:each="product : ${search_product}">
+    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
+    <br>
+    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+    <hr>
+</div>
+<h3>Каталог товаров</h3>
+<div th:each="product : ${products}">
+    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
+    <br>
+    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+    <br>
+    <a th:href="@{/cart/add/{id}(id = ${product.getId()})}">Добавить товар в корзину</a>
+    <hr>
+</div>
+</body>
+</html>
