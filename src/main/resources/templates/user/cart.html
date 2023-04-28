@@ -5,6 +5,9 @@
     <title>Корзина товаров</title>
 </head>
 <body>
+    <form th:method="GET" th:action="@{/personalAccount}">
+        <button type="submit">Вернуться в каталог товаров</button>
+    </form>
     <h3>Корзина товаров</h3>
     <div th:each="product : ${cart_product}">
         <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">

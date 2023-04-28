@@ -61,7 +61,7 @@ public class MainController {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        personService.register(person);
+        personService.register(person); 
         return "redirect:/personalAccount";
     }
 

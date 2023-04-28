@@ -5,6 +5,12 @@
     <title>Каталог</title>
 </head>
 <body>
+<form th:method="GET" th:action="@{/authentication}">
+    <button type="submit">Авторизоваться</button>
+</form>
+<form th:method="GET" th:action="@{/registration}">
+    <button type="submit">Зарегистрироваться</button>
+</form>
 <h1>Главная страница магазина</h1>
 <h3>Сортировка, поиск, фильтрация</h3>
 <form th:method="POST" th:action="@{/product/search}">
